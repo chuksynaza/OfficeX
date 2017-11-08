@@ -1,0 +1,39 @@
+{
+  "name": "officex",
+  "version": "1.0.1",
+  "description": "Share files, make voice and video calls, chat, collaborate in the office",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuksynaza/OfficeX.git"
+  },
+  "keywords": [
+    "video",
+    "call",
+    "voice",
+    "call",
+    "WebRTC",
+    "peerjs",
+    "nodejs",
+    "office",
+    "team",
+    "collaborate",
+    "Chuksy",
+    "ChuksyLabs",
+    "file",
+    "sharing"
+  ],
+  "author": "Chuksy, ChuksyLabs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chuksynaza/OfficeX/issues"
+  },
+  "homepage": "https://github.com/chuksynaza/OfficeX#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "peer": "^0.2.8"
+  }
+}
