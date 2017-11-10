@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Play Peer</title>
+	<script type="text/javascript" src="peer.min.js"></script>
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		var mee = "derrick";
+		var peer = new Peer(mee, {
+			host: "192.168.137.1",
+			port: 9000,
+			path: '/officeConn'
+		})
+	</script>
+</head>
+<body>
+	<h1>OfficeX - Derrick</h1>
+	<p>Collaborate, share files, voice and video calls in the office</p>
+	<input type="text" id="pair"><input type = "button" id = "connect" value = "connect">
+	<div style="background-color: black; height:40px; color:white;" id="box">
+		Drag and drop a file to send
+	</div>
+	<div id = "messages">
+
+	</div>
+	<textarea placeholder = "Enter your message" id = "messageText"></textarea>
+	<button id = "sendMessage">Send</button>
+	<script type="text/javascript">
+		function activeConnection(conn){
+
+			conn.on('open', function() {
+				console.log("connected");	
+				  // Receive messages
+				  conn.send({
+				  	what:"message",
+				  	message:"Conversation with " + mee
+				  });
+				  conn.on('data', function(data) {
+
+				  	if (data.what == "file") {
+				  	       /*var dataView = new Uint8Array(data);
+				  	       var dataBlob = new Blob([dataView]);
+				  	       var url = window.URL.createObjectURL(dataBlob);
+				  	       $('#messages').append('<div><span class="file">' +
+				  	       conn.peer + ' has sent you a <a target="_blank" href="' + url + '">file</a>.</span></div>');*/
+
+				  	       var sampleBytes = new Uint8Array(data.file);
+
+				  	       var saveByteArray = (function () {
+				  	       	var a = document.createElement("a");
+				  	       	document.body.appendChild(a);
+				  	       	a.style = "display: none";
+				  	       	return function (data, name, filetype) {
+				  	       		//console.log("dd" + data);
+				  	       		//console.log("nn" + name);
+				  	       		var blob = new Blob(data, {type: "octet/stream"}),
+				  	       		url = window.URL.createObjectURL(blob);
+				  	       		//a.href = url;
+				  	       		//a.download = name;
+				  	       		//a.click();
+				  	       		//window.URL.revokeObjectURL(url);
+				  	       		console.log(filetype.substr(0, 5));
+				  	       		var imgsupport ="";
+				  	       		if(filetype.substr(0, 5) == "image")
+				  	       		{
+				  	       			var mediasupport = ' <img src ="' + url + '" alt="Image " >';
+				  	       		}
+				  	       		else if(filetype.substr(0, 5) == "audio"){
+				  	       			var mediasupport = '<audio controls><source src="'+url+'" type="'+ filetype +'">You need audio support</audio>';
+				  	       		}
+				  	       		else if(filetype.substr(0, 5) == "video"){
+				  	       			var mediasupport = '<video controls><source src="'+url+'" type="'+ filetype +'">You need video support </video>';
+				  	       		}
+				  	       		$('#messages').append('<div><span class="file">' +
+				  	       			conn.peer + ' has sent you a' + mediasupport + ' <a target="_blank" href="' + url + '" download="' + name + '">  ' + 'Download: ' +name +'</a>.</span></div>');
+				  	       		//window.URL.revokeObjectURL(url);
+				  	       	};
+				  	       }());
+
+				  	       saveByteArray([sampleBytes], data.filename, data.filetype);
+				  	   }
+				  	   else if(data.what == "message"){
+				  	   	$('#messages').append("<blockquote>" + data.message + "</blockquote>"); 
+
+				  	   }
+				  	   console.log('Received', data);
+				  	});
+
+				  $(document).ready(function() {
+				    // Prepare file drop box.
+				    var box = $('#box');
+				    box.on('dragenter', doNothing);
+				    box.on('dragover', doNothing);
+				    box.on('drop', function(e){
+				    	e.originalEvent.preventDefault();
+				    	var file = e.originalEvent.dataTransfer.files[0];
+
+				    	conn.send({
+				    		what:"file",
+				    		file: file,
+				    		filename: file.name,
+				    		filetype: file.type
+				    	});
+				          //$c.find('.messages').append('<div><span class="file">You sent a file.</span></div>');
+				          console.log("You sent a file");
+				      });
+				    function doNothing(e){
+				    	e.preventDefault();
+				    	e.stopPropagation();
+				    }
+
+				});
+
+				  document.getElementById('sendMessage').onclick = function(){
+				  	var textMessage = document.getElementById('messageText').value;
+				  	conn.send({
+				  		what:"message",
+				  		message:textMessage
+				  	});
+				  	document.getElementById('messageText').value = "";
+				  }
+				});
+		}
+
+		document.getElementById('connect').onclick = function(){
+			var conn = peer.connect(document.getElementById('pair').value);
+			activeConnection(conn);
+		}
+
+		peer.on('connection', function(conn) {
+			console.log("Recieve connection");
+			activeConnection(conn);
+
+		});
+
+
+
+
+	</script>
+</body>
+</html>
