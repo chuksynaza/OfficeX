@@ -10,7 +10,7 @@ app.get('/', function(req, res, next) { res.send('Hello world!'); });
 app.get('/send', function(req, res, next) { 
 
 	res.writeHead(200, {'Content-Type': 'text/html'});
-	fs.readFile('playb.html', function (err, data){
+	fs.readFile('demo/playb.html', function (err, data){
 		if(err) {
 			throw error;
 		}
@@ -26,7 +26,7 @@ app.get('/send', function(req, res, next) {
 
 app.get('/recieve', function(req, res, next) { 
 	res.writeHead(200, {'Content-Type': 'text/html'});
-	fs.readFile('playc.html', function (err, data){
+	fs.readFile('demo/playc.html', function (err, data){
 		if(err) {
 			throw error;
 		}
