@@ -5,16 +5,20 @@
 	<script type="text/javascript" src="peer.min.js"></script>
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
-		var mee = "collins";
+		
+		
+		
+
+		var mee = "<%= user %>";
 		var peer = new Peer(mee, {
-			host: "192.168.137.1",
-			port: 9000,
-			path: '/officeConn'
+			host: window.location.hostname,
+			port: window.location.port,
+			path: '<%= path %>',
 		})
 	</script>
 </head>
 <body>
-	<h1>OfficeX - Collins</h1>
+	<h1>OfficeX - <%= user %></h1>
 	<p>Collaborate, share files, voice and video calls in the office</p>
 	<input type="text" id="pair"><input type = "button" id = "connect" value = "connect">
 	<div style="background-color: black; height:40px; color:white;" id="box">
