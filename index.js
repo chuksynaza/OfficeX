@@ -56,7 +56,7 @@ Object.keys(ifaces).forEach(function (ifname) {
         console.log("");
         console.log("Welcome to the Chat Sandbox");
         console.log("");
-        console.log("Test the chat interface from this device at : ", "https://localhost:8443");
+        console.log("Test the chat interface from this device at : ", "https://localhost:" +Sport);
         console.log("");
         console.log("And access the chat sandbox from another device through LAN using any of the IPS:");
         console.log("Important: Node.js needs to accept inbound connections through the Host Firewall");
@@ -65,10 +65,10 @@ Object.keys(ifaces).forEach(function (ifname) {
         if (alias >= 1) {
             console.log("Multiple ipv4 addreses were found ... ");
             // this single interface has multiple ipv4 addresses
-            console.log(ifname + ':' + alias, "https://"+ iface.address + ":8443");
+            console.log(ifname + ':' + alias, "https://"+ iface.address + ":"+Sport);
         } else {
             // this interface has only one ipv4 adress
-            console.log(ifname, "https://"+ iface.address + ":8443");
+            console.log(ifname, "https://"+ iface.address + ":"+Sport);
         }
 
         ++alias;
@@ -100,16 +100,16 @@ app.get('/recieve', function(req, res, next) {
 
 
 var options = {
-	debug: true,
+	debug: 3,
 	ssl: sslCredentials
 }
 var connServer = ExpressPeerServer(httpsServer, options);
 app.use(path, connServer);
 
 connServer.on('connection', function(id) {
-	console.log('New connection with '+id)
-
+	console.log('New connection with ' + id);
 });
+
 
 connServer.on('disconnect', function (id) {
 	console.log('disconnect with id ' + id);

@@ -5,15 +5,18 @@
 	<script type="text/javascript" src="peer.min.js"></script>
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
-		
-		
-		
+
+
+
 
 		var mee = "<%= user %>";
 		var peer = new Peer(mee, {
 			host: window.location.hostname,
 			port: window.location.port,
 			path: '<%= path %>',
+			metadata: {
+                'username': mee
+            }
 		})
 	</script>
 </head>
