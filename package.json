@@ -4,7 +4,7 @@
   "description": "Share files, make voice and video calls, chat, collaborate in the office",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,8 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "peer": "^0.2.8"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1"
   }
 }
