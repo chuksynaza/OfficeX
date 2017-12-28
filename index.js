@@ -15,11 +15,17 @@ var sslCredentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(sslCredentials, app);
 
+httpServer.close();
+httpsServer.close();
+
+var exports = module.exports = {};
+
+
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
-app.get('/', function(req, res, next) { res.send('Hello world!'); });
+app.get('/', function(req, res, next) { res.send('Welcome to OfficeX'); });
 
 /*app.get('/send', function(req, res, next) { 
 
@@ -123,3 +129,9 @@ var LANAccess = "0.0.0.0";
 httpServer.listen(port, LANAccess);
 // For https
 httpsServer.listen(Sport, LANAccess);
+
+
+exports.closeOfficeX = function(){
+  httpServer.close();
+  httpsServer.close();
+};

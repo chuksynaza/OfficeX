@@ -38,6 +38,8 @@
     "peer": "^0.2.8"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "request": "^2.83.0"
   }
 }
