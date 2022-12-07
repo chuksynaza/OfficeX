@@ -34,7 +34,7 @@
   "homepage": "https://github.com/chuksynaza/OfficeX#readme",
   "dependencies": {
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "peer": "^0.2.8"
   },
   "devDependencies": {
